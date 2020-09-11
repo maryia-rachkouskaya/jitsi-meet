@@ -75,7 +75,7 @@ export default class ToolboxItem extends AbstractToolboxItem<Props> {
                 accessibilityState={{ selected: toggled }}
                 disabled={disabled}
                 onPress={onClick}
-                style={[style, { backgroundColor: "green" }]}
+                style={style}
                 underlayColor={styles && styles.underlayColor}
             >
                 {children}

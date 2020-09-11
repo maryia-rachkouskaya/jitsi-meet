@@ -1,26 +1,25 @@
 // @flow
 
-import React, { PureComponent } from 'react';
-import { View } from 'react-native';
+import React, { PureComponent } from "react";
+import { View } from "react-native";
 
-import { ColorSchemeRegistry } from '../../../base/color-scheme';
-import { Container } from '../../../base/react';
-import { connect } from '../../../base/redux';
-import { StyleType } from '../../../base/styles';
-import { ChatButton } from '../../../chat';
-import { isToolboxVisible } from '../../functions';
-import AudioMuteButton from '../AudioMuteButton';
-import HangupButton from '../HangupButton';
-import VideoMuteButton from '../VideoMuteButton';
+import { ColorSchemeRegistry } from "../../../base/color-scheme";
+import { Container } from "../../../base/react";
+import { connect } from "../../../base/redux";
+import { StyleType } from "../../../base/styles";
+import { ChatButton } from "../../../chat";
+import { isToolboxVisible } from "../../functions";
+import AudioMuteButton from "../AudioMuteButton";
+import HangupButton from "../HangupButton";
+import VideoMuteButton from "../VideoMuteButton";
 
-import OverflowMenuButton from './OverflowMenuButton';
-import styles from './styles';
+import OverflowMenuButton from "./OverflowMenuButton";
+import styles from "./styles";
 
 /**
  * The type of {@link Toolbox}'s React {@code Component} props.
  */
 type Props = {
-
     /**
      * The color-schemed stylesheet of the feature.
      */
@@ -34,7 +33,7 @@ type Props = {
     /**
      * The redux {@code dispatch} function.
      */
-    dispatch: Function
+    dispatch: Function,
 };
 
 /**
@@ -49,10 +48,8 @@ class Toolbox extends PureComponent<Props> {
      */
     render() {
         return (
-            <Container
-                style = { styles.toolbox }
-                visible = { this.props._visible }>
-                { this._renderToolbar() }
+            <Container style={styles.toolbox} visible={this.props._visible}>
+                {this._renderToolbar()}
             </Container>
         );
     }
@@ -72,19 +69,13 @@ class Toolbox extends PureComponent<Props> {
         if (Array.isArray(baseStyle.style)) {
             return {
                 ...baseStyle,
-                style: [
-                    ...baseStyle.style,
-                    _styles.chatButtonOverride.toggled
-                ]
+                style: [...baseStyle.style, _styles.chatButtonOverride.toggled],
             };
         }
 
         return {
             ...baseStyle,
-            style: [
-                baseStyle.style,
-                _styles.chatButtonOverride.toggled
-            ]
+            style: [baseStyle.style, _styles.chatButtonOverride.toggled],
         };
     }
 
@@ -97,27 +88,38 @@ class Toolbox extends PureComponent<Props> {
      */
     _renderToolbar() {
         const { _styles } = this.props;
-        const { buttonStyles, buttonStylesBorderless, hangupButtonStyles, toggledButtonStyles } = _styles;
+        const {
+            buttonStyles,
+            buttonStylesBorderless,
+            hangupButtonStyles,
+            toggledButtonStyles,
+        } = _styles;
 
         return (
             <View
-                accessibilityRole = 'toolbar'
-                pointerEvents = 'box-none'
-                style = { styles.toolbar }>
+                accessibilityRole="toolbar"
+                pointerEvents="box-none"
+                style={styles.toolbar}
+            >
                 <ChatButton
-                    styles = { buttonStylesBorderless }
-                    toggledStyles = { this._getChatButtonToggledStyle(toggledButtonStyles) } />
+                    styles={buttonStylesBorderless}
+                    toggledStyles={this._getChatButtonToggledStyle(
+                        toggledButtonStyles
+                    )}
+                />
+                <HangupButton styles={hangupButtonStyles} />
                 <AudioMuteButton
-                    styles = { buttonStyles }
-                    toggledStyles = { toggledButtonStyles } />
-                <HangupButton
-                    styles = { hangupButtonStyles } />
+                    styles={buttonStyles}
+                    toggledStyles={toggledButtonStyles}
+                />
                 <VideoMuteButton
-                    styles = { buttonStyles }
-                    toggledStyles = { toggledButtonStyles } />
+                    styles={buttonStyles}
+                    toggledStyles={toggledButtonStyles}
+                />
                 <OverflowMenuButton
-                    styles = { buttonStylesBorderless }
-                    toggledStyles = { toggledButtonStyles } />
+                    styles={buttonStylesBorderless}
+                    toggledStyles={toggledButtonStyles}
+                />
             </View>
         );
     }
@@ -134,8 +136,8 @@ class Toolbox extends PureComponent<Props> {
  */
 function _mapStateToProps(state: Object): Object {
     return {
-        _styles: ColorSchemeRegistry.get(state, 'Toolbox'),
-        _visible: isToolboxVisible(state)
+        _styles: ColorSchemeRegistry.get(state, "Toolbox"),
+        _visible: isToolboxVisible(state),
     };
 }
 
